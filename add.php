@@ -2,20 +2,19 @@
 include 'connection.php';
 
 if(isset($_POST['submit'])) {
-    // Sanitize input data
+
     $name = mysqli_real_escape_string($connection, $_POST['name']);
     $address = mysqli_real_escape_string($connection, $_POST['address']);
     $department = mysqli_real_escape_string($connection, $_POST['Department']);
     $gender = mysqli_real_escape_string($connection, $_POST['gender']);
     $mobile = mysqli_real_escape_string($connection, $_POST['Mobil']);
+    
+    $Skills = isset($_POST['Skill']) ? $_POST['Skill'] : []; 
 
-    // Ensure skills are captured correctly
-    $Skills = isset($_POST['Skill']) ? $_POST['Skill'] : []; // Ensure it's an array
 
-    // Convert array to comma-separated string
     $SkillsString = !empty($Skills) ? implode(", ", $Skills) : '';
 
-    // Insert into database
+
     $sql = "INSERT INTO student (Name, Address, Department, Gender, Skill, Mobil) 
             VALUES ('$name', '$address', '$department', '$gender', '$SkillsString', '$mobile')";
 
